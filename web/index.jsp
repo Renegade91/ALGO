@@ -13,7 +13,8 @@
     </head>
     <body>
         <h1>Hello World!</h1>
-        <%
+        <% 
+            System.out.println("test");
             Verwaltung.DBconn.createNewDatabase("test.db");
         %>
     </body>

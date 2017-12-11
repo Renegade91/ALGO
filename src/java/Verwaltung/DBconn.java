@@ -20,7 +20,7 @@ public class DBconn {
     
     // createNewDatabase("test.db");
     public static void createNewDatabase(String fileName) {
-        String url = "jdbc:sqlite:sqlite/" + fileName;
+        String url = "jdbc:sqlite:C:/Users/89388/Documents/NetBeansProjects/ALGO/sqlite/" + fileName;
  
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
