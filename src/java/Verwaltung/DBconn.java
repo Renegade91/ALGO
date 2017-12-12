@@ -5,12 +5,6 @@ package Verwaltung;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-/**
- *
- * @author 89388
- */
-
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -19,9 +13,10 @@ import java.sql.SQLException;
 public class DBconn {
     
     // createNewDatabase("test.db");
-    public static void createNewDatabase(String fileName) {
-        String url = "jdbc:sqlite:C:/Users/89388/Documents/NetBeansProjects/ALGO/sqlite/" + fileName;
+    public static void createNewDatabase(String fileName) throws ClassNotFoundException {
+        String url = "jdbc:sqlite:" + System.getProperty("user.home") + "/Documents/NetBeansProjects/ALGO/sqlite/" + fileName;
  
+        Class.forName("org.sqlite.JDBC");
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
                 DatabaseMetaData meta = conn.getMetaData();
