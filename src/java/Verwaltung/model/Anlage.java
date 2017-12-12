@@ -9,21 +9,22 @@ package Verwaltung.model;
  *
  * @author 89473
  */
-class Anlage {
-    String id, name;
+public class Anlage {
+    int id;
+    String name;
     String lokalerPfad;
 
-    public Anlage(String id, String name, String lokalerPfad) {
+    public Anlage(int id, String name, String lokalerPfad) {
         this.id = id;
         this.name = name;
         this.lokalerPfad = lokalerPfad;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

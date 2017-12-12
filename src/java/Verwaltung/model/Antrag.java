@@ -5,8 +5,8 @@
  */
 package Verwaltung.model;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  *
@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public class Antrag {
     
-    String antragsnummer;
+    int antragsnummer;
     Date gestelltam;
     Ratsmitglied gestelltvon;
     String betreff;
@@ -23,7 +23,7 @@ public class Antrag {
     ArrayList<Anlage> anlagen;
     String details;
 
-    public Antrag(String antragsnummer, Date gestelltam, Ratsmitglied gestelltvon, String betreff, String typ,  String details) {
+    public Antrag(int antragsnummer, Date gestelltam, Ratsmitglied gestelltvon, String betreff, String typ,  String details) {
         this.antragsnummer = antragsnummer;
         this.gestelltam = gestelltam;
         this.gestelltvon = gestelltvon;
@@ -38,11 +38,11 @@ public class Antrag {
     
     
     
-    public String getAntragsnummer() {
+    public int getAntragsnummer() {
         return antragsnummer;
     }
 
-    public void setAntragsnummer(String antragsnummer) {
+    public void setAntragsnummer(int antragsnummer) {
         this.antragsnummer = antragsnummer;
     }
 
