@@ -13,7 +13,7 @@ import java.util.Date;
  * @author 89473
  */
 public class Antrag {
-    
+
     String antragsnummer;
     Date gestelltam;
     Ratsmitglied gestelltvon;
@@ -23,7 +23,7 @@ public class Antrag {
     ArrayList<Anlage> anlagen;
     String details;
 
-    public Antrag(String antragsnummer, Date gestelltam, Ratsmitglied gestelltvon, String betreff, String typ,  String details) {
+    public Antrag(String antragsnummer, Date gestelltam, Ratsmitglied gestelltvon, String betreff, String typ, String details) {
         this.antragsnummer = antragsnummer;
         this.gestelltam = gestelltam;
         this.gestelltvon = gestelltvon;
@@ -34,10 +34,10 @@ public class Antrag {
         this.details = details;
     }
 
-    
-    
-    
-    
+    public String getName() {
+        return gestelltvon.getVname() + " " + gestelltvon.getNname();
+    }
+
     public String getAntragsnummer() {
         return antragsnummer;
     }
@@ -74,6 +74,14 @@ public class Antrag {
         return angenommen;
     }
 
+    public String getStatus() {
+        if (isAngenommen()) {
+            return "Angenommen";
+        } else {
+            return "Abgelehnt";
+        }
+    }
+
     public void setAngenommen(boolean angenommen) {
         this.angenommen = angenommen;
     }
@@ -101,7 +109,5 @@ public class Antrag {
     public void setDetails(String details) {
         this.details = details;
     }
-    
-    
-    
+
 }
