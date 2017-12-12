@@ -36,9 +36,11 @@ details VARCHAR(65536) NULL,
     FOREIGN KEY (dokumente) REFERENCES anlagen(id)
 );
 
-CREATE TABLE IF NOT EXISTS anlagen (
+CREATE TABLE IF NOT EXISTS anlage(
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 name VARCHAR(45) NOT NULL,
-lokalerPfad VARCHAR(45) NOT NULL
+lokalerPfad VARCHAR(45) NOT NULL,
+antrag_id INTEGER NOT NULL,
+    FOREIGN KEY (antrag_id)  REFERENCES antrag(id)
 );
 
