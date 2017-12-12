@@ -7,7 +7,7 @@ package Verwaltung;
         
 import Verwaltung.model.*;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
@@ -22,14 +22,14 @@ public class controller {
                 "5",
                 "Bauer",
                 "NEIN",
-                "1", 
+                1, 
                 "Peter", 
                 "Griffin", 
                 "telefon", 
                 "email", 
                 "adresse", 
                 "hausnr", 
-                new Date(), 
+                Date.valueOf("2020-12-12"), 
                 "bezirk"
         );
         
@@ -42,8 +42,8 @@ public class controller {
         Ratsmitglied rm = getRatsmitglied(id);
         
         Antrag data = new Antrag(
-                "1", 
-                new Date(), 
+                1, 
+                Date.valueOf("2020-12-12"), 
                 rm, 
                 "Verschrottung des Denkmals", 
                 "Langweilig", 
