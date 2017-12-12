@@ -5,7 +5,8 @@
  */
 package Verwaltung.model;
 
-import java.util.Date;
+import java.sql.Date;
+
 
 /**
  *
@@ -13,14 +14,14 @@ import java.util.Date;
  */
 public abstract class Person {
     
-    String id;
+    int id;
     String vname, nname;
     String telefon, email, adresse;
     String hausnr;
     Date Geburtstag;
     String bezirk;
 
-    public Person(String id, String vname, String nname, String telefon, String email, String adresse, String hausnr, Date Geburtstag, String bezirk) {
+    public Person(int id, String vname, String nname, String telefon, String email, String adresse, String hausnr, Date Geburtstag, String bezirk) {
         this.id = id;
         this.vname = vname;
         this.nname = nname;
@@ -35,11 +36,11 @@ public abstract class Person {
     
     
     
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -5,7 +5,8 @@
  */
 package Verwaltung.model;
 
-import java.util.Date;
+import java.sql.Date;
+
 
 /**
  *
@@ -15,7 +16,7 @@ public class Ratsmitglied extends Person{
     
     String wahlperiode, fraktion, stadtratsarbeit;
 
-    public Ratsmitglied(String wahlperiode, String fraktion, String stadtratsarbeit, String id, String vname, String nname, String telefon, String email, String adresse, String hausnr, Date Geburtstag, String bezirk) {
+    public Ratsmitglied(String wahlperiode, String fraktion, String stadtratsarbeit, int id, String vname, String nname, String telefon, String email, String adresse, String hausnr, Date Geburtstag, String bezirk) {
         super(id, vname, nname, telefon, email, adresse, hausnr, Geburtstag, bezirk);
         this.wahlperiode = wahlperiode;
         this.fraktion = fraktion;
