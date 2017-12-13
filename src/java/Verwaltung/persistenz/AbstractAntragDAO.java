@@ -17,13 +17,13 @@ public abstract class AbstractAntragDAO implements AbstractDAO<Antrag> {
     @Override
     public abstract boolean create(Antrag element);
     @Override
-    public abstract Antrag read(String id);
+    public abstract Antrag read(int id);
     @Override
     public abstract List<Antrag> read();
     @Override
     public abstract boolean update(Antrag element);
     @Override
-    public abstract boolean delete(String id);
+    public abstract boolean delete(int id);
     
     
 }

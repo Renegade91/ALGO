@@ -50,7 +50,7 @@ public class listAntrage extends HttpServlet {
                     + "</tr>"
             );
 
-            ArrayList<Antrag> Antrage = controller.getAntragAlle();
+            ArrayList<Antrag> Antrage = controller.instance().getAntragAlle();
 
             for (Antrag a : Antrage) {
 

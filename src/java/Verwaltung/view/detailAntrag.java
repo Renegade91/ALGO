@@ -40,7 +40,7 @@ public class detailAntrag extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
 
             int id = Integer.parseInt(request.getParameter("id"));
-            Antrag a = controller.getAntrag(id);
+            Antrag a = controller.instance().getAntrag(id);
 
             out.println("<tr><td>AntragsNr:</td><td>" + a.getAntragsnummer() + "</td><td></td></tr>");
             out.println("<tr><td>Typ:</td><td>" + a.getTyp() + "</td><td></td></tr>");

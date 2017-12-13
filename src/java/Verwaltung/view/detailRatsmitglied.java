@@ -40,7 +40,7 @@ public class detailRatsmitglied extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             
             int id = Integer.parseInt(request.getParameter("id"));
-            Ratsmitglied rm = controller.getRatsmitglied(id);
+            Ratsmitglied rm = controller.instance().getRatsmitglied(id);
             
             out.println("<tr><td>Wahlperiode:</td><td>" + rm.getWahlperiode() + "</td></tr>");
             out.println("<tr><td>Fraktion:</td><td>" + rm.getFraktion() + "</td></tr>");

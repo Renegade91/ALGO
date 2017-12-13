@@ -13,8 +13,8 @@ import java.util.List;
  */
 public interface AbstractDAO<T> {
     public abstract boolean create(T element);
-    public abstract T read(String id);
+    public abstract T read(int id);
     public abstract List<T> read();
     public abstract boolean update(T element);
-    public abstract boolean delete(String id);
+    public abstract boolean delete(int id);
 }

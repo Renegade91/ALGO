@@ -6,6 +6,8 @@
 package Verwaltung;
         
 import Verwaltung.model.*;
+import Verwaltung.persistenz.AbstractDAOFactory;
+import Verwaltung.persistenz.SQLiteDAOFactory;
 import java.util.ArrayList;
 import java.sql.Date;
 
@@ -15,10 +17,23 @@ import java.sql.Date;
  */
 public class controller {
     
-    static public Ratsmitglied getRatsmitglied(int id) {
+    private static final controller instance = new controller();
+    private AbstractDAOFactory factory;
+    
+    private controller() {
+        factory = new SQLiteDAOFactory();
+    }
+    
+    public static controller instance(){
+        return instance;
+    }
+    
+    public Ratsmitglied getRatsmitglied(int id) {
         // hier muss der dao call hin
-        
-        Ratsmitglied rm = new Ratsmitglied(
+        Antrag antrag = (Antrag) factory.createAntragDAO().read(id);
+        Ratsmitglied rm = antrag.getGestelltvon();
+                
+                /*new Ratsmitglied(
                 "5",
                 "Bauer",
                 "NEIN",
@@ -31,12 +46,12 @@ public class controller {
                 "hausnr", 
                 Date.valueOf("2020-12-12"), 
                 "bezirk"
-        );
+        );*/
         
         return rm;
     }
  
-    static public Antrag getAntrag(int id) {
+    public Antrag getAntrag(int id) {
         // hier muss der dao call hin
         
         Ratsmitglied rm = getRatsmitglied(id);
@@ -53,7 +68,7 @@ public class controller {
         return data;
     }
     
-    static public ArrayList<Antrag> getAntragAlle() {
+    public ArrayList<Antrag> getAntragAlle() {
         // hier muss der dao call hin
 
         Antrag single = getAntrag(1);

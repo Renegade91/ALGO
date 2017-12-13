@@ -25,7 +25,7 @@ import org.sqlite.SQLiteConnection;
  */
 public class SQLiteAntragDAO extends AbstractAntragDAO{
     
-    
+    public SQLiteAntragDAO(){}
     
     @Override
     public boolean create(Antrag element) {
@@ -93,7 +93,7 @@ public class SQLiteAntragDAO extends AbstractAntragDAO{
     }
 
     @Override
-    public Antrag read(String id) {
+    public Antrag read(int id) {
             Connection conn = SQLiteConnectionPool.instance().getConnection();
             Antrag ret = null;
             Ratsmitglied teilErg = null;
@@ -104,7 +104,7 @@ public class SQLiteAntragDAO extends AbstractAntragDAO{
 
             
             PreparedStatement preparedStatement = conn.prepareStatement(selectAntragSQL);
-            preparedStatement.setString(1, id);  
+            preparedStatement.setInt(1, id);  
             
   
             
@@ -180,7 +180,7 @@ public class SQLiteAntragDAO extends AbstractAntragDAO{
     }
 
     @Override
-    public boolean delete(String id) {
+    public boolean delete(int id) {
         Connection conn = SQLiteConnectionPool.instance().getConnection();
         
         SQLiteConnectionPool.instance().returnConnection((SQLiteConnection) conn);
