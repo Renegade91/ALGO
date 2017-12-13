@@ -9,11 +9,16 @@ package Verwaltung.persistenz;
  *
  * @author 89473
  */
-public class SQLiteDAOFactory extends AbstractDAOFactory<SQLiteAntragDAO> {
+public class SQLiteDAOFactory extends AbstractDAOFactory<AbstractDAO>{
 
     @Override
     public SQLiteAntragDAO createAntragDAO() {
         return new SQLiteAntragDAO();
     }
 
+    @Override
+    public SQLiteRatsmitgliedDAO createRatsmitgliedDAO() {
+        return new SQLiteRatsmitgliedDAO();
+    }
+    
 }
