@@ -20,19 +20,16 @@ import org.sqlite.SQLiteConnection;
  *
  * @author 89473
  */
-public class SQLiteRatsmitgliedDAO extends AbstractRatsmitgliedDAO{
+public class SQLiteRatsmitgliedDAO extends AbstractRatsmitgliedDAO {
 
     @Override
     public boolean create(Ratsmitglied element) {
-        int retAnlage=0;
+        int retAnlage = 0;
         try {
             Connection conn = SQLiteConnectionPool.instance().getConnection();
-            
-            
-            
+
             String insertRatsmitgliedSQL = "INSERT INTO ratsmitglied(vorname,nachname,telefonnr,email,straße,hausnummer,ort,gebDate,wahlperiode,fraktion,stadtratsarbeit) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
-            
-            
+
             PreparedStatement preparedStatement = conn.prepareStatement(insertRatsmitgliedSQL);
 
             preparedStatement.setString(1, element.getVname());
@@ -46,15 +43,15 @@ public class SQLiteRatsmitgliedDAO extends AbstractRatsmitgliedDAO{
             preparedStatement.setString(9, element.getWahlperiode());
             preparedStatement.setString(10, element.getFraktion());
             preparedStatement.setString(11, element.getStadtratsarbeit());
-            
+
             // execute insert SQL stetement
             retAnlage = preparedStatement.executeUpdate();
-            
+
             SQLiteConnectionPool.instance().returnConnection((SQLiteConnection) conn);
         } catch (SQLException ex) {
             Logger.getLogger(SQLiteRatsmitgliedDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return retAnlage ==1;
+        return retAnlage == 1;
     }
 
     @Override
@@ -62,14 +59,14 @@ public class SQLiteRatsmitgliedDAO extends AbstractRatsmitgliedDAO{
         Ratsmitglied ret = null;
         try {
             Connection conn = SQLiteConnectionPool.instance().getConnection();
-            
-            String selectRatsmitgliedSQL = "SELECT FROM ratsmitglied * where id=?";
-            
+
+            String selectRatsmitgliedSQL = "SELECT * FROM ratsmitglied where id=?";
+
             PreparedStatement preparedStatement = conn.prepareStatement(selectRatsmitgliedSQL);
             preparedStatement.setInt(1, id);
-            
+
             ResultSet rs = preparedStatement.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 int idTeilErg = rs.getInt("id");
                 String vname = rs.getString("vorname");
                 String nname = rs.getString("nachname");
@@ -82,12 +79,11 @@ public class SQLiteRatsmitgliedDAO extends AbstractRatsmitgliedDAO{
                 String wahlperiode = rs.getString("wahlperiode");
                 String fraktion = rs.getString("fraktion");
                 String stadtratsarbeit = rs.getString("stadtratsarbeit");
-                
+
                 ret = new Ratsmitglied(wahlperiode, fraktion, stadtratsarbeit, idTeilErg, vname, nname, telefonnr, email, straße, hausnummer, gebDate, ort);
-                
+
             }
-            
-            
+
             SQLiteConnectionPool.instance().returnConnection((SQLiteConnection) conn);
         } catch (SQLException ex) {
             Logger.getLogger(SQLiteRatsmitgliedDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -98,7 +94,7 @@ public class SQLiteRatsmitgliedDAO extends AbstractRatsmitgliedDAO{
     @Override
     public ArrayList<Ratsmitglied> read() {
         Connection conn = SQLiteConnectionPool.instance().getConnection();
-        
+
         SQLiteConnectionPool.instance().returnConnection((SQLiteConnection) conn);
         return null;
     }
@@ -106,7 +102,7 @@ public class SQLiteRatsmitgliedDAO extends AbstractRatsmitgliedDAO{
     @Override
     public boolean update(Ratsmitglied element) {
         Connection conn = SQLiteConnectionPool.instance().getConnection();
-        
+
         SQLiteConnectionPool.instance().returnConnection((SQLiteConnection) conn);
         return false;
     }
@@ -114,9 +110,9 @@ public class SQLiteRatsmitgliedDAO extends AbstractRatsmitgliedDAO{
     @Override
     public boolean delete(int id) {
         Connection conn = SQLiteConnectionPool.instance().getConnection();
-        
+
         SQLiteConnectionPool.instance().returnConnection((SQLiteConnection) conn);
         return false;
     }
-    
+
 }

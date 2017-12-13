@@ -4,32 +4,32 @@
  * and open the template in the editor.
  */
 package Verwaltung;
-        
+
 import Verwaltung.model.*;
 import Verwaltung.persistenz.*;
-
 import java.util.ArrayList;
-import java.sql.Date;
 
 /**
  *
  * @author 89388
  */
 public class controller {
-    
+
     private static final controller instance = new controller();
-    private AbstractDAOFactory factory;
-    
+    private final AbstractDAOFactory factory;
+
     private controller() {
         factory = new SQLiteDAOFactory();
     }
-    
-    public static controller instance(){
+
+    public static controller instance() {
         return instance;
     }
-    
+
     public Ratsmitglied getRatsmitglied(int id) {
-        // hier muss der dao call hin
+        Ratsmitglied rm = (Ratsmitglied) factory.createRatsmitgliedDAO().read(id);
+
+        /*
         Ratsmitglied rm = new Ratsmitglied(
                 "5",
                 "Bauer",
@@ -44,17 +44,13 @@ public class controller {
                 Date.valueOf("2020-12-12"), 
                 "bezirk"
         );
-        
+         */
         return rm;
     }
- 
+
     public Antrag getAntrag(int id) {
-        // hier muss der dao call hin
-        
-        Ratsmitglied rm = getRatsmitglied(id);
-        
         Antrag antrag = (Antrag) factory.createAntragDAO().read(id);
-        
+
         /*Antrag data = new Antrag(
                 1, 
                 Date.valueOf("2020-12-12"), 
@@ -63,13 +59,12 @@ public class controller {
                 "Langweilig", 
                 "none"
         );*/
-        
         return antrag;
     }
-    
+
     public ArrayList<Antrag> getAntragAlle() {
         ArrayList<Antrag> data = factory.createAntragDAO().read();
-        
+
         return data;
     }
 }
