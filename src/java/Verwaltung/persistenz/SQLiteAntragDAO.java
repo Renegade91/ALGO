@@ -225,10 +225,17 @@ public class SQLiteAntragDAO extends AbstractAntragDAO {
                         antrag.setGestelltvon(new Ratsmitglied(wahlperiode, fraktion, stadtratsarbeit, idTeilErg, vname, nname, telefonnr, email, straße, hausnummer, gebDate, ort));
                     }
                     
-                    //Anlagen Handling
+                    //Ratsmitglied Handling
                     Ratsmitglied rm = (Ratsmitglied) new SQLiteDAOFactory().createRatsmitgliedDAO().read(gestelltvon);
                     antrag.setGestelltvon(rm);
                    
+                    //Anlagen Handling
+                    //TODO:
+                    antrag.setAnlagen(new ArrayList<Anlage>());
+                    //ArrayList<Anlage> anlagen = (Anlage) new SQLiteDAOFactory().createAnlageDAO().read(antragsId);
+                    //antrag.setAnlagen(anlagen);
+                    
+                    
                 /* String selectAnlagenSQL = "SELECT * FROM anlage where antragID=?";
                 ArrayList<Anlage> anlagen= new ArrayList();
                 preparedStatement = conn.prepareStatement(selectAnlagenSQL);

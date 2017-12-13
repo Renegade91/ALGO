@@ -14,11 +14,13 @@ public class Anlage {
     int id;
     String name;
     String lokalerPfad;
+    int antragID;
 
-    public Anlage(int id, String name, String lokalerPfad) {
+    public Anlage(int id, String name, String lokalerPfad, int antragID) {
         this.id = id;
         this.name = name;
         this.lokalerPfad = lokalerPfad;
+        this.antragID = antragID;
     }
 
     public int getId() {
@@ -44,5 +46,15 @@ public class Anlage {
     public void setLokalerPfad(String lokalerPfad) {
         this.lokalerPfad = lokalerPfad;
     }
+
+    public int getAntragID() {
+        return antragID;
+    }
+
+    public void setAntragID(int antragID) {
+        this.antragID = antragID;
+    }
+    
+    
 
 }
