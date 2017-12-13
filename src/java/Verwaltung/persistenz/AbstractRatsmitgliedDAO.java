@@ -5,28 +5,28 @@
  */
 package Verwaltung.persistenz;
 
-import Verwaltung.model.Antrag;
+import Verwaltung.model.Ratsmitglied;
 import java.util.List;
 
 /**
  *
  * @author 89473
  */
-public abstract class AbstractAntragDAO implements AbstractDAO<Antrag> {
+public abstract class AbstractRatsmitgliedDAO implements AbstractDAO<Ratsmitglied>{
 
     @Override
-    public abstract boolean create(Antrag element);
+    public abstract boolean create(Ratsmitglied element);
 
     @Override
-    public abstract Antrag read(int id);
+    public abstract Ratsmitglied read(int id);
 
     @Override
-    public abstract List<Antrag> read();
+    public abstract List<Ratsmitglied> read();
 
     @Override
-    public abstract boolean update(Antrag element);
+    public abstract boolean update(Ratsmitglied element);
 
     @Override
     public abstract boolean delete(int id);
-
+    
 }

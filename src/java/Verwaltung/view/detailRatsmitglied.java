@@ -34,14 +34,14 @@ public class detailRatsmitglied extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         response.setContentType("text/html;charset=UTF-8");
-        
+
         try (PrintWriter out = response.getWriter()) {
-            
+
             int id = Integer.parseInt(request.getParameter("id"));
             Ratsmitglied rm = controller.instance().getRatsmitglied(id);
-            
+
             out.println("<tr><td>Wahlperiode:</td><td>" + rm.getWahlperiode() + "</td></tr>");
             out.println("<tr><td>Fraktion:</td><td>" + rm.getFraktion() + "</td></tr>");
             out.println("<tr><td>Stadtratsarbeit:</td><td>" + rm.getStadtratsarbeit() + "</td></tr>");

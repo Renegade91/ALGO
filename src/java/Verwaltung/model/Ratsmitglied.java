@@ -7,13 +7,12 @@ package Verwaltung.model;
 
 import java.sql.Date;
 
-
 /**
  *
  * @author 89473
  */
-public class Ratsmitglied extends Person{
-    
+public class Ratsmitglied extends Person {
+
     String wahlperiode, fraktion, stadtratsarbeit;
 
     public Ratsmitglied(String wahlperiode, String fraktion, String stadtratsarbeit, int id, String vname, String nname, String telefon, String email, String adresse, String hausnr, Date Geburtstag, String bezirk) {
@@ -23,7 +22,6 @@ public class Ratsmitglied extends Person{
         this.stadtratsarbeit = stadtratsarbeit;
     }
 
-    
     public String getWahlperiode() {
         return wahlperiode;
     }
@@ -47,7 +45,5 @@ public class Ratsmitglied extends Person{
     public void setStadtratsarbeit(String stadtratsarbeit) {
         this.stadtratsarbeit = stadtratsarbeit;
     }
-    
-    
-    
+
 }

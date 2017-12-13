@@ -10,6 +10,7 @@ package Verwaltung.persistenz;
  * @author 89473
  */
 public abstract class AbstractDAOFactory<T extends AbstractDAO> {
+
     public abstract T createAntragDAO();
     public abstract T createRatsmitgliedDAO();
 }

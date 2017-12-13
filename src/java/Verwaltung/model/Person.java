@@ -7,13 +7,12 @@ package Verwaltung.model;
 
 import java.sql.Date;
 
-
 /**
  *
  * @author 89473
  */
 public abstract class Person {
-    
+
     int id;
     String vname, nname;
     String telefon, email, adresse;
@@ -33,9 +32,6 @@ public abstract class Person {
         this.bezirk = bezirk;
     }
 
-    
-    
-    
     public int getId() {
         return id;
     }
@@ -107,7 +103,5 @@ public abstract class Person {
     public void setBezirk(String bezirk) {
         this.bezirk = bezirk;
     }
-    
-    
-    
+
 }
