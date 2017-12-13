@@ -29,36 +29,12 @@ public class controller {
     public Ratsmitglied getRatsmitglied(int id) {
         Ratsmitglied rm = (Ratsmitglied) factory.createRatsmitgliedDAO().read(id);
 
-        /*
-        Ratsmitglied rm = new Ratsmitglied(
-                "5",
-                "Bauer",
-                "NEIN",
-                1, 
-                "Peter", 
-                "Griffin", 
-                "telefon", 
-                "email", 
-                "adresse", 
-                "hausnr", 
-                Date.valueOf("2020-12-12"), 
-                "bezirk"
-        );
-         */
         return rm;
     }
 
     public Antrag getAntrag(int id) {
         Antrag antrag = (Antrag) factory.createAntragDAO().read(id);
 
-        /*Antrag data = new Antrag(
-                1, 
-                Date.valueOf("2020-12-12"), 
-                rm, 
-                "Verschrottung des Denkmals", 
-                "Langweilig", 
-                "none"
-        );*/
         return antrag;
     }
 
