@@ -18,17 +18,17 @@ public class Antrag {
     Date gestelltam;
     Ratsmitglied gestelltvon;
     String betreff;
-    boolean angenommen;
+    boolean status;
     String typ;
     ArrayList<Anlage> anlagen;
     String details;
 
-    public Antrag(int antragsnummer, Date gestelltam, Ratsmitglied gestelltvon, String betreff, String typ, String details) {
+    public Antrag(int antragsnummer, Date gestelltam, Ratsmitglied gestelltvon, String betreff, boolean status,String typ, String details) {
         this.antragsnummer = antragsnummer;
         this.gestelltam = gestelltam;
         this.gestelltvon = gestelltvon;
         this.betreff = betreff;
-        this.angenommen = false;
+        this.status = status;
         this.typ = typ;
         this.anlagen = new ArrayList<>();
         this.details = details;
@@ -71,7 +71,7 @@ public class Antrag {
     }
 
     public boolean isAngenommen() {
-        return angenommen;
+        return status;
     }
 
     public String getStatus() {
@@ -83,7 +83,7 @@ public class Antrag {
     }
 
     public void setAngenommen(boolean angenommen) {
-        this.angenommen = angenommen;
+        this.status = angenommen;
     }
 
     public String getTyp() {
