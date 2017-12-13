@@ -111,12 +111,12 @@ public class SQLiteAntragDAO extends AbstractAntragDAO {
                 Date gestelltam = rs.getDate("gestelltam");
                 gestelltvon = rs.getInt("gestelltvon");
                 String betreff = rs.getString("betreff");
-                String status = rs.getString("status");
+                boolean status = rs.getBoolean("status");
                 String typ = rs.getString("typ");
                 String dokumente = rs.getString("dokumente");
                 String details = rs.getString("details");
 
-                ret = new Antrag(antragsId, gestelltam, null, betreff, typ, details);
+                ret = new Antrag(antragsId, gestelltam, null, betreff,status, typ, details);
             }
 
             if (gestelltvon != 0) {
@@ -174,12 +174,12 @@ public class SQLiteAntragDAO extends AbstractAntragDAO {
                 Date gestelltam = rs.getDate("gestelltam");
                 gestelltvon = rs.getInt("gestelltvon");
                 String betreff = rs.getString("betreff");
-                String status = rs.getString("status");
+                boolean status = rs.getBoolean("status");
                 String typ = rs.getString("typ");
                 String dokumente = rs.getString("dokumente");
                 String details = rs.getString("details");
 
-                ret.add(new Antrag(antragsId, gestelltam, null, betreff, typ, details));
+                ret.add(new Antrag(antragsId, gestelltam, null, betreff, status, typ, details));
             }
 
             for (Antrag antrag : ret) {
