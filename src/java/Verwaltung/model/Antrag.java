@@ -13,6 +13,7 @@ import java.util.ArrayList;
  * @author 89473
  */
 public class Antrag {
+
     int antragsnummer;
     Date gestelltam;
     Ratsmitglied gestelltvon;
@@ -22,7 +23,7 @@ public class Antrag {
     ArrayList<Anlage> anlagen;
     String details;
 
-    public Antrag(int antragsnummer, Date gestelltam, Ratsmitglied gestelltvon, String betreff, String typ,  String details) {
+    public Antrag(int antragsnummer, Date gestelltam, Ratsmitglied gestelltvon, String betreff, String typ, String details) {
         this.antragsnummer = antragsnummer;
         this.gestelltam = gestelltam;
         this.gestelltvon = gestelltvon;

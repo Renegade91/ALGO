@@ -10,6 +10,7 @@ package Verwaltung.model;
  * @author 89473
  */
 public class Anlage {
+
     int id;
     String name;
     String lokalerPfad;
@@ -43,6 +44,5 @@ public class Anlage {
     public void setLokalerPfad(String lokalerPfad) {
         this.lokalerPfad = lokalerPfad;
     }
-    
-    
+
 }

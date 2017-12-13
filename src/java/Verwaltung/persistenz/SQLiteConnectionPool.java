@@ -16,7 +16,8 @@ import org.sqlite.SQLiteConnection;
  *
  * @author 89473
  */
-public class SQLiteConnectionPool extends AbstractConnectionPool<SQLiteConnection>{
+public class SQLiteConnectionPool extends AbstractConnectionPool<SQLiteConnection> {
+
     private static final int MAX_CONNECTIONS = 5;
     private static SQLiteConnectionPool instance = null;
     private final Stack<SQLiteConnection> myDBStack = new Stack();
@@ -25,34 +26,35 @@ public class SQLiteConnectionPool extends AbstractConnectionPool<SQLiteConnectio
     String user = "";
     String password = "";
     
-    public static synchronized SQLiteConnectionPool instance(){
-        if(instance == null){
+    public static synchronized SQLiteConnectionPool instance() {
+        if (instance == null) {
             instance = new SQLiteConnectionPool();
         }
         return instance;
     }
     
-    private SQLiteConnectionPool(){   
+    private SQLiteConnectionPool() {        
     }
     
     @Override
-    public synchronized SQLiteConnection getConnection(){
+    public synchronized SQLiteConnection getConnection() {
         SQLiteConnection conn;
-        if(myDBStack.empty()){
+        if (myDBStack.empty()) {
             conn = createConnection();
-        }else{
+        } else {
             conn = myDBStack.pop();
         }
         return conn;
     }
+
     @Override
-    public synchronized void returnConnection(SQLiteConnection conn){
+    public synchronized void returnConnection(SQLiteConnection conn) {
         try {
-            if(conn != null && conn.isValid(200)){
-                conn.commit();
-                if(myDBStack.size() < MAX_CONNECTIONS){
+            if (conn != null && conn.isValid(200)) {
+                conn.setAutoCommit(true);
+                if (myDBStack.size() < MAX_CONNECTIONS) {
                     myDBStack.push(conn);
-                }else{
+                } else {
                     conn.close();
                 }
             }
@@ -60,19 +62,24 @@ public class SQLiteConnectionPool extends AbstractConnectionPool<SQLiteConnectio
             Logger.getLogger(SQLiteConnectionPool.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     @Override
-    protected synchronized SQLiteConnection createConnection(){
+    protected synchronized SQLiteConnection createConnection() {
         SQLiteConnection conn = null;
-        try{
+        try {
+            System.out.println(host);
+            Class.forName("org.sqlite.JDBC");
             conn = (SQLiteConnection) DriverManager.getConnection(host);
-        }catch(SQLException e){
-            
+        } catch (SQLException e) {
+            System.out.println("createConnection BOOM");
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Stupid Driver didn't load");
         }
         return conn;
     }
     
     @Override
-    public synchronized void closePool(){
+    public synchronized void closePool() {
         myDBStack.stream().forEach((conn) -> {
             try {
                 conn.close();

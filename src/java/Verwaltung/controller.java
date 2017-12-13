@@ -30,10 +30,7 @@ public class controller {
     
     public Ratsmitglied getRatsmitglied(int id) {
         // hier muss der dao call hin
-        Antrag antrag = (Antrag) factory.createAntragDAO().read(id);
-        Ratsmitglied rm = antrag.getGestelltvon();
-                
-                /*new Ratsmitglied(
+        Ratsmitglied rm = new Ratsmitglied(
                 "5",
                 "Bauer",
                 "NEIN",
@@ -46,7 +43,7 @@ public class controller {
                 "hausnr", 
                 Date.valueOf("2020-12-12"), 
                 "bezirk"
-        );*/
+        );
         
         return rm;
     }
@@ -56,16 +53,19 @@ public class controller {
         
         Ratsmitglied rm = getRatsmitglied(id);
         
-        Antrag data = new Antrag(
+        Antrag antrag = (Antrag) factory.createAntragDAO().read(id);
+
+        
+        /*Antrag data = new Antrag(
                 1, 
                 Date.valueOf("2020-12-12"), 
                 rm, 
                 "Verschrottung des Denkmals", 
                 "Langweilig", 
                 "none"
-        );
+        );*/
         
-        return data;
+        return antrag;
     }
     
     public ArrayList<Antrag> getAntragAlle() {

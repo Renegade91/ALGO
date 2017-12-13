@@ -34,7 +34,7 @@ public class detailAntrag extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         response.setContentType("text/html;charset=UTF-8");
 
         try (PrintWriter out = response.getWriter()) {
@@ -54,7 +54,7 @@ public class detailAntrag extends HttpServlet {
 
             out.println("<tr><td>Status:</td><td>" + a.getStatus() + "</td><td></td></tr>");
             out.println("<tr><td>Dokumente:</td><td>" + a.getDetails() + "</td><td></td></tr>");
-            
+
         }
     }
 
