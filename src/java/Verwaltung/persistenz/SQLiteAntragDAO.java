@@ -24,7 +24,7 @@ import org.sqlite.SQLiteConnection;
  * @author 89473
  */
 public class SQLiteAntragDAO extends AbstractAntragDAO {
-    
+
     public SQLiteAntragDAO() {
     }
 
@@ -41,7 +41,7 @@ public class SQLiteAntragDAO extends AbstractAntragDAO {
 
             PreparedStatement preparedStatement = conn.prepareStatement(insertAntragSQL);
             preparedStatement.setDate(1, (Date) element.getGestelltam());
-            preparedStatement.setInt(2, element.getGestelltvon().getId());
+            preparedStatement.setInt(2, element.getRatsmitglied().getId());
             preparedStatement.setString(3, element.getBetreff());
             preparedStatement.setBoolean(4, element.isAngenommen());
             preparedStatement.setString(5, element.getTyp());
@@ -67,17 +67,17 @@ public class SQLiteAntragDAO extends AbstractAntragDAO {
 
             preparedStatement = conn.prepareStatement(insertRatsmitgliedSQL);
 
-            preparedStatement.setString(1, element.getGestelltvon().getVname());
-            preparedStatement.setString(2, element.getGestelltvon().getNname());
-            preparedStatement.setString(3, element.getGestelltvon().getTelefon());
-            preparedStatement.setString(4, element.getGestelltvon().getEmail());
-            preparedStatement.setString(5, element.getGestelltvon().getAdresse());
-            preparedStatement.setString(6, element.getGestelltvon().getHausnr());
-            preparedStatement.setString(7, element.getGestelltvon().getBezirk());
-            preparedStatement.setDate(8, element.getGestelltvon().getGeburtstag());
-            preparedStatement.setString(9, element.getGestelltvon().getWahlperiode());
-            preparedStatement.setString(10, element.getGestelltvon().getFraktion());
-            preparedStatement.setString(11, element.getGestelltvon().getStadtratsarbeit());
+            preparedStatement.setString(1, element.getRatsmitglied().getVname());
+            preparedStatement.setString(2, element.getRatsmitglied().getNname());
+            preparedStatement.setString(3, element.getRatsmitglied().getTelefon());
+            preparedStatement.setString(4, element.getRatsmitglied().getEmail());
+            preparedStatement.setString(5, element.getRatsmitglied().getAdresse());
+            preparedStatement.setString(6, element.getRatsmitglied().getHausnr());
+            preparedStatement.setString(7, element.getRatsmitglied().getBezirk());
+            preparedStatement.setDate(8, element.getRatsmitglied().getGeburtstag());
+            preparedStatement.setString(9, element.getRatsmitglied().getWahlperiode());
+            preparedStatement.setString(10, element.getRatsmitglied().getFraktion());
+            preparedStatement.setString(11, element.getRatsmitglied().getStadtratsarbeit());
 
             // execute insert SQL stetement
             retAnlage = preparedStatement.executeUpdate();
@@ -95,84 +95,32 @@ public class SQLiteAntragDAO extends AbstractAntragDAO {
     public Antrag read(int id) {
         Connection conn = SQLiteConnectionPool.instance().getConnection();
         Antrag ret = null;
-        Ratsmitglied ratsmitglied = null;
-        String selectAntragSQL = "SELECT * FROM antrag where id=?";
-        int antragsId = 0;
-        int gestelltvon = 0;
-        try {
 
+        try {
+            String selectAntragSQL = "SELECT * FROM antrag where id=?";
             PreparedStatement preparedStatement = conn.prepareStatement(selectAntragSQL);
             preparedStatement.setInt(1, id);
 
             // execute insert SQL stetement
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                antragsId = rs.getInt("id");
+                int antragsId = rs.getInt("id");
                 Date gestelltam = rs.getDate("gestelltam");
-                gestelltvon = rs.getInt("personID");
+                int gestelltvon = rs.getInt("personID");
                 String betreff = rs.getString("betreff");
                 boolean status = rs.getBoolean("status");
                 String typ = rs.getString("typ");
-                String dokumente = rs.getString("anlageID");
                 String details = rs.getString("details");
 
-                ret = new Antrag(antragsId, gestelltam, null, betreff, status, typ, details);
-            }
-
-            if (gestelltvon != 0) {
-                /*String selectRatsmitgliedSQL = "SELECT * FROM ratsmitglied where id=?";
-
-                preparedStatement = conn.prepareStatement(selectRatsmitgliedSQL);
-                preparedStatement.setInt(1, gestelltvon);
-
-                rs = preparedStatement.executeQuery();
-                while (rs.next()) {
-                    int idTeilErg = rs.getInt("id");
-                    String vname = rs.getString("vorname");
-                    String nname = rs.getString("nachname");
-                    String telefonnr = rs.getString("telefonnr");
-                    String email = rs.getString("email");
-                    String straße = rs.getString("straße");
-                    String hausnummer = rs.getString("hausnummer");
-                    String ort = rs.getString("ort");
-                    Date gebDate = rs.getDate("gebDate");
-                    String wahlperiode = rs.getString("wahlperiode");
-                    String fraktion = rs.getString("fraktion");
-                    String stadtratsarbeit = rs.getString("stadtratsarbeit");
-
-                    ratsmitglied = new Ratsmitglied(wahlperiode, fraktion, stadtratsarbeit, idTeilErg, vname, nname, telefonnr, email, straße, hausnummer, gebDate, ort);
-*/
-                
                 Ratsmitglied rm = (Ratsmitglied) new SQLiteDAOFactory().createRatsmitgliedDAO().read(gestelltvon);
-                ret.setGestelltvon(rm);
-                
 
-                //Anlagen Handling
-                String selectAnlagenSQL = "SELECT * FROM anlage where antragID=?";
-                ArrayList<Anlage> anlagen= new ArrayList();
-                preparedStatement = conn.prepareStatement(selectAnlagenSQL);
-                preparedStatement.setInt(1, ret.getAntragsnummer());
-
-                // execute insert SQL stetement
-                rs = preparedStatement.executeQuery();
-                while (rs.next()) {
-                    int anlagenID = rs.getInt("id");
-                    String anlagenName = rs.getString("name");
-                    String anlagenPfad = rs.getString("lokalerPfad");
-                    int antragID = rs.getInt("antragID");
-
-                    Anlage anlage = new Anlage(anlagenID, anlagenName, anlagenPfad,antragID);
-                    anlagen.add(anlage);
-                    
-                }
-                ret.setGestelltvon(ratsmitglied);
-                ret.setAnlagen(anlagen);
+                ret = new Antrag(antragsId, gestelltam, rm, betreff, status, typ, details);
             }
-            SQLiteConnectionPool.instance().returnConnection((SQLiteConnection) conn);
-            
         } catch (SQLException ex) {
             Logger.getLogger(SQLiteAntragDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        SQLiteConnectionPool.instance().returnConnection((SQLiteConnection) conn);
         return ret;
     }
 
@@ -180,66 +128,33 @@ public class SQLiteAntragDAO extends AbstractAntragDAO {
     public ArrayList<Antrag> read() {
         Connection conn = SQLiteConnectionPool.instance().getConnection();
         ArrayList<Antrag> ret = new ArrayList();
-        Ratsmitglied teilErg = null;
-        String selectAntragSQL = "SELECT * FROM antrag";
-        int antragsId = 0;
-        int gestelltvon = 0;
-        try {
 
+        try {
+            String selectAntragSQL = "SELECT * FROM antrag";
             PreparedStatement preparedStatement = conn.prepareStatement(selectAntragSQL);
 
             // execute insert SQL stetement
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                antragsId = rs.getInt("id");
+                int antragsId = rs.getInt("id");
                 Date gestelltam = rs.getDate("gestelltam");
-                gestelltvon = rs.getInt("personID");
+                int gestelltvon = rs.getInt("personID");
                 String betreff = rs.getString("betreff");
                 boolean status = rs.getBoolean("status");
                 String typ = rs.getString("typ");
-                String dokumente = rs.getString("anlageID");
                 String details = rs.getString("details");
 
-                ret.add(new Antrag(antragsId, gestelltam, null, betreff, status, typ, details));
-            }
+                //Ratsmitglied Handling
+                Ratsmitglied rm = (Ratsmitglied) new SQLiteDAOFactory().createRatsmitgliedDAO().read(gestelltvon);
 
-            for (Antrag antrag : ret) {
-                if (antrag.getGestelltvon() == null) {
-                    String selectRatsmitgliedSQL = "SELECT * FROM ratsmitglied where id=?";
-                    preparedStatement = conn.prepareStatement(selectRatsmitgliedSQL);
-                    preparedStatement.setInt(1, antrag.getAntragsnummer());
-                    rs = preparedStatement.executeQuery();
-                    while (rs.next()) {
-                        int idTeilErg = rs.getInt("id");
-                        String vname = rs.getString("vorname");
-                        String nname = rs.getString("nachname");
-                        String telefonnr = rs.getString("telefonnr");
-                        String email = rs.getString("email");
-                        String straße = rs.getString("straße");
-                        String hausnummer = rs.getString("hausnummer");
-                        String ort = rs.getString("ort");
-                        Date gebDate = rs.getDate("gebDate");
-                        String wahlperiode = rs.getString("wahlperiode");
-                        String fraktion = rs.getString("fraktion");
-                        String stadtratsarbeit = rs.getString("stadtratsarbeit");
-                        antrag.setGestelltvon(new Ratsmitglied(wahlperiode, fraktion, stadtratsarbeit, idTeilErg, vname, nname, telefonnr, email, straße, hausnummer, gebDate, ort));
-                    }
-                    
-                    //Ratsmitglied Handling
-                    Ratsmitglied rm = (Ratsmitglied) new SQLiteDAOFactory().createRatsmitgliedDAO().read(gestelltvon);
-                    antrag.setGestelltvon(rm);
-                   
-                    //Anlagen Handling
-                    //TODO:
-                    antrag.setAnlagen(new ArrayList<Anlage>());
-                    //ArrayList<Anlage> anlagen = (Anlage) new SQLiteDAOFactory().createAnlageDAO().read(antragsId);
-                    //antrag.setAnlagen(anlagen);
-                    
-                    
+                //Anlagen Handling
+                //TODO:
+                //ArrayList<Anlage> anlagen = (Anlage) new SQLiteDAOFactory().createAnlageDAO().read(antragsId);
+                //antrag.setAnlagen(anlagen);
                 /* String selectAnlagenSQL = "SELECT * FROM anlage where antragID=?";
                 ArrayList<Anlage> anlagen= new ArrayList();
                 preparedStatement = conn.prepareStatement(selectAnlagenSQL);
-                preparedStatement.setInt(1, antrag.getAntragsnummer());
+                preparedStatement.setInt(1, antrag.getanlageID());
 
                 // execute insert SQL stetement
                 rs = preparedStatement.executeQuery();
@@ -253,15 +168,14 @@ public class SQLiteAntragDAO extends AbstractAntragDAO {
                     anlagen.add(anlage);
                     
                 }*/
-                }
+                ret.add(new Antrag(antragsId, gestelltam, rm, betreff, status, typ, details));
             }
-
-            SQLiteConnectionPool.instance().returnConnection((SQLiteConnection) conn);
         } catch (SQLException ex) {
             Logger.getLogger(SQLiteAntragDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return ret;
 
+        SQLiteConnectionPool.instance().returnConnection((SQLiteConnection) conn);
+        return ret;
     }
 
     @Override

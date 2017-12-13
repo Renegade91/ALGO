@@ -10,7 +10,7 @@ import Verwaltung.persistenz.*;
 import java.util.ArrayList;
 
 /**
- *
+ * 
  * @author 89388
  */
 public class controller {

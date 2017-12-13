@@ -16,17 +16,17 @@ public class Antrag {
 
     int antragsnummer;
     Date gestelltam;
-    Ratsmitglied gestelltvon;
+    Ratsmitglied ratsmitglied;
     String betreff;
     boolean status;
     String typ;
     ArrayList<Anlage> anlagen;
     String details;
 
-    public Antrag(int antragsnummer, Date gestelltam, Ratsmitglied gestelltvon, String betreff, boolean status,String typ, String details) {
+    public Antrag(int antragsnummer, Date gestelltam, Ratsmitglied ratsmitglied, String betreff, boolean status,String typ, String details) {
         this.antragsnummer = antragsnummer;
         this.gestelltam = gestelltam;
-        this.gestelltvon = gestelltvon;
+        this.ratsmitglied = ratsmitglied;
         this.betreff = betreff;
         this.status = status;
         this.typ = typ;
@@ -35,7 +35,7 @@ public class Antrag {
     }
 
     public String getName() {
-        return gestelltvon.getVname() + " " + gestelltvon.getNname();
+        return ratsmitglied.getVname() + " " + ratsmitglied.getNname();
     }
 
     public int getAntragsnummer() {
@@ -54,12 +54,12 @@ public class Antrag {
         this.gestelltam = gestelltam;
     }
 
-    public Ratsmitglied getGestelltvon() {
-        return gestelltvon;
+    public Ratsmitglied getRatsmitglied() {
+        return ratsmitglied;
     }
 
-    public void setGestelltvon(Ratsmitglied gestelltvon) {
-        this.gestelltvon = gestelltvon;
+    public void setRatsmitglied(Ratsmitglied ratsmitglied) {
+        this.ratsmitglied = ratsmitglied;
     }
 
     public String getBetreff() {
