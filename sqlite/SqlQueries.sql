@@ -7,6 +7,10 @@
  * Author:  DB
  * Created: 12.12.2017
  */
+drop table if exists ratsmitlied;
+drop table if exists antrag;
+drop table if exists anlage;
+
 
 CREATE TABLE IF NOT EXISTS ratsmitglied (
 id INTEGER PRIMARY KEY AUTOINCREMENT,  
@@ -26,21 +30,21 @@ stadtratsarbeit VARCHAR(45) NOT NULL);
 CREATE TABLE IF NOT EXISTS antrag (  
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 gestelltam DATE NOT NULL, 
-gestelltvon INTEGER NOT NULL, 
+personID INTEGER NOT NULL, 
 betreff VARCHAR(45) NOT NULL,  
-status VARCHAR(45) NOT NULL,  
+status boolean NOT NULL,  
 typ VARCHAR(45) NULL,
-dokumente INTEGER NOT NULL,  
+anlageID INTEGER,  
 details VARCHAR(65536) NULL,
-    FOREIGN KEY (gestelltvon) REFERENCES ratsmitglied(id)
-    FOREIGN KEY (dokumente) REFERENCES anlagen(id)
+    FOREIGN KEY (personID) REFERENCES ratsmitglied(id)
+    FOREIGN KEY (anlageID) REFERENCES anlage(id)
 );
 
 CREATE TABLE IF NOT EXISTS anlage(
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 name VARCHAR(45) NOT NULL,
 lokalerPfad VARCHAR(45) NOT NULL,
-antrag_id INTEGER NOT NULL,
-    FOREIGN KEY (antrag_id)  REFERENCES antrag(id)
+antragID INTEGER NOT NULL,
+    FOREIGN KEY (antragID)  REFERENCES antrag(id)
 );
 
