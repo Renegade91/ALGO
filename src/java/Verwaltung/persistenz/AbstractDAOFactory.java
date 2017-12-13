@@ -13,4 +13,5 @@ public abstract class AbstractDAOFactory<T extends AbstractDAO> {
 
     public abstract T createAntragDAO();
     public abstract T createRatsmitgliedDAO();
+    public abstract T createAnlageDAO();
 }

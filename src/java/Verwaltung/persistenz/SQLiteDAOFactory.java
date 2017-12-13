@@ -20,5 +20,12 @@ public class SQLiteDAOFactory extends AbstractDAOFactory<AbstractDAO>{
     public SQLiteRatsmitgliedDAO createRatsmitgliedDAO() {
         return new SQLiteRatsmitgliedDAO();
     }
+
+    @Override
+    public AbstractDAO createAnlageDAO() {
+        return new SQLiteAnlageDAO();
+    }
+    
+    
     
 }

@@ -7,7 +7,7 @@
  * Author:  DB
  * Created: 12.12.2017
  */
-drop table if exists ratsmitlied;
+drop table if exists ratsmitglied;
 drop table if exists antrag;
 drop table if exists anlage;
 
