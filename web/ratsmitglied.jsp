@@ -8,7 +8,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Stadtrat Stadt</title>
         <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
         <jsp:include page="/header.jsp" />
     </head>
@@ -25,7 +24,7 @@
                 </div>
                 <br>
                 <div class="w3-container">
-                    <a href="antrag.jsp" class="w3-button w3-teal w3-round">
+                    <a href='antragDetail.jsp?id=<%= request.getParameter("back") %>' class="w3-button w3-teal w3-round">
                         <i class="fa fa-arrow-left"></i>
                     </a>
                 </div>

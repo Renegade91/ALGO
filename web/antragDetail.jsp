@@ -8,7 +8,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Stadtrat Stadt</title>
         <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
         <jsp:include page="/header.jsp" />
     </head>

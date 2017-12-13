@@ -1,7 +1,7 @@
 <%-- 
-    Document   : antrag
-    Created on : 11.12.2017, 13:06:43
-    Author     : 89449
+    Document   : index
+    Created on : 13.12.2017, 14:38:54
+    Author     : 89388
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -16,13 +16,10 @@
 
         <main> 
             <article class="begruessung"> 
-                <h2>Hoverable Table</h2>
-                <p>Move the mouse over the table rows to see the effect.</p>
-
-                <table>
-                    <c:import url="/listAntrage" charEncoding="UTF-8" />  
-                </table>
+                <h1>Herzlich Willkommen auf Seite des Stadtrats Stadts</h1> 
+                <p>Auf dieser Seite verwalten wir alle Anträge, Beschlüsse und soweiter.</p>
             </article> 
+
         </main>
 
         <jsp:include page="/footer.jsp" />

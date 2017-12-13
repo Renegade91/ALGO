@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<div  class="w3-container w3-teal">
+<div  class="w3-container w3-teal footer">
     <footer>
         <div>
             <p>© 2017 by Arbeitsgruppe Blümchen</p>  
