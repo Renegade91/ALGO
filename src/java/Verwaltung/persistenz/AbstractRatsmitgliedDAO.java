@@ -6,7 +6,7 @@
 package Verwaltung.persistenz;
 
 import Verwaltung.model.Ratsmitglied;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -21,7 +21,7 @@ public abstract class AbstractRatsmitgliedDAO implements AbstractDAO<Ratsmitglie
     public abstract Ratsmitglied read(int id);
 
     @Override
-    public abstract List<Ratsmitglied> read();
+    public abstract ArrayList<Ratsmitglied> read();
 
     @Override
     public abstract boolean update(Ratsmitglied element);

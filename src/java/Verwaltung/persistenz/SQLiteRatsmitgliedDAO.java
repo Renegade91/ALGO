@@ -11,7 +11,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.sqlite.SQLiteConnection;
@@ -96,7 +96,7 @@ public class SQLiteRatsmitgliedDAO extends AbstractRatsmitgliedDAO{
     }
 
     @Override
-    public List<Ratsmitglied> read() {
+    public ArrayList<Ratsmitglied> read() {
         Connection conn = SQLiteConnectionPool.instance().getConnection();
         
         SQLiteConnectionPool.instance().returnConnection((SQLiteConnection) conn);
