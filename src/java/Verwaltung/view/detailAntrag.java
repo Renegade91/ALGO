@@ -47,7 +47,7 @@ public class detailAntrag extends HttpServlet {
             out.println("<tr><td>Thema:</td><td>" + a.getBetreff() + "</td><td></td></tr>");
             out.println("<tr><td>Gestellt am:</td><td>" + a.getGestelltam() + "</td><td></td></tr>");
             out.println("<tr><td>Gestellt von:</td><td>" + a.getName() + "</td><td>"
-                    + "<a href=\"./ratsmitglied.jsp?id=" + a.getGestelltvon().getId() + "\">"
+                    + "<a href=\"./ratsmitglied.jsp?id=" + a.getRatsmitglied().getId() + "\">"
                     + "<i class=\"fa fa-search\"></i>"
                     + "</a></td></tr>"
             );

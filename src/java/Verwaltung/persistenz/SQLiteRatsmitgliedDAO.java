@@ -56,10 +56,10 @@ public class SQLiteRatsmitgliedDAO extends AbstractRatsmitgliedDAO {
 
     @Override
     public Ratsmitglied read(int id) {
+        Connection conn = SQLiteConnectionPool.instance().getConnection();
         Ratsmitglied ret = null;
-        try {
-            Connection conn = SQLiteConnectionPool.instance().getConnection();
 
+        try {
             String selectRatsmitgliedSQL = "SELECT * FROM ratsmitglied where id=?";
 
             PreparedStatement preparedStatement = conn.prepareStatement(selectRatsmitgliedSQL);
@@ -81,13 +81,12 @@ public class SQLiteRatsmitgliedDAO extends AbstractRatsmitgliedDAO {
                 String stadtratsarbeit = rs.getString("stadtratsarbeit");
 
                 ret = new Ratsmitglied(wahlperiode, fraktion, stadtratsarbeit, idTeilErg, vname, nname, telefonnr, email, straße, hausnummer, gebDate, ort);
-
             }
 
-            SQLiteConnectionPool.instance().returnConnection((SQLiteConnection) conn);
         } catch (SQLException ex) {
             Logger.getLogger(SQLiteRatsmitgliedDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        SQLiteConnectionPool.instance().returnConnection((SQLiteConnection) conn);
         return ret;
     }
 
