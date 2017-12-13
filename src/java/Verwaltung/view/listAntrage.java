@@ -7,6 +7,7 @@ package Verwaltung.view;
 
 import Verwaltung.controller;
 import Verwaltung.model.Antrag;
+import java.util.List;
 
 import java.io.IOException;
 import java.io.PrintWriter;

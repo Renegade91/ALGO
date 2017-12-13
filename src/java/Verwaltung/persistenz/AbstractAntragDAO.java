@@ -6,7 +6,7 @@
 package Verwaltung.persistenz;
 
 import Verwaltung.model.Antrag;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -21,7 +21,7 @@ public abstract class AbstractAntragDAO implements AbstractDAO<Antrag> {
     public abstract Antrag read(int id);
 
     @Override
-    public abstract List<Antrag> read();
+    public abstract ArrayList<Antrag> read();
 
     @Override
     public abstract boolean update(Antrag element);
