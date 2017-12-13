@@ -24,7 +24,7 @@ import org.sqlite.SQLiteConnection;
  * @author 89473
  */
 public class SQLiteAntragDAO extends AbstractAntragDAO {
-
+    
     public SQLiteAntragDAO() {
     }
 
@@ -37,7 +37,7 @@ public class SQLiteAntragDAO extends AbstractAntragDAO {
             conn.setAutoCommit(false);
 
             //Antrag Handling
-            String insertAntragSQL = "INSERT INTO Antrag(gestelltam, gestelltvon, betreff,status,typ,details) VALUES(?,?,?,?,?,?,?)";
+            String insertAntragSQL = "INSERT INTO Antrag(gestelltam, personID, betreff,status,typ,details) VALUES(?,?,?,?,?,?,?)";
 
             PreparedStatement preparedStatement = conn.prepareStatement(insertAntragSQL);
             preparedStatement.setDate(1, (Date) element.getGestelltam());
@@ -95,7 +95,7 @@ public class SQLiteAntragDAO extends AbstractAntragDAO {
     public Antrag read(int id) {
         Connection conn = SQLiteConnectionPool.instance().getConnection();
         Antrag ret = null;
-        Ratsmitglied teilErg = null;
+        Ratsmitglied ratsmitglied = null;
         String selectAntragSQL = "SELECT * FROM antrag where id=?";
         int antragsId = 0;
         int gestelltvon = 0;
@@ -109,18 +109,18 @@ public class SQLiteAntragDAO extends AbstractAntragDAO {
             while (rs.next()) {
                 antragsId = rs.getInt("id");
                 Date gestelltam = rs.getDate("gestelltam");
-                gestelltvon = rs.getInt("gestelltvon");
+                gestelltvon = rs.getInt("personID");
                 String betreff = rs.getString("betreff");
                 boolean status = rs.getBoolean("status");
                 String typ = rs.getString("typ");
-                String dokumente = rs.getString("dokumente");
+                String dokumente = rs.getString("anlageID");
                 String details = rs.getString("details");
 
-                ret = new Antrag(antragsId, gestelltam, null, betreff,status, typ, details);
+                ret = new Antrag(antragsId, gestelltam, null, betreff, status, typ, details);
             }
 
             if (gestelltvon != 0) {
-                String selectRatsmitgliedSQL = "SELECT * FROM ratsmitglied where id=?";
+                /*String selectRatsmitgliedSQL = "SELECT * FROM ratsmitglied where id=?";
 
                 preparedStatement = conn.prepareStatement(selectRatsmitgliedSQL);
                 preparedStatement.setInt(1, gestelltvon);
@@ -140,15 +140,36 @@ public class SQLiteAntragDAO extends AbstractAntragDAO {
                     String fraktion = rs.getString("fraktion");
                     String stadtratsarbeit = rs.getString("stadtratsarbeit");
 
-                    teilErg = new Ratsmitglied(wahlperiode, fraktion, stadtratsarbeit, idTeilErg, vname, nname, telefonnr, email, straße, hausnummer, gebDate, ort);
+                    ratsmitglied = new Ratsmitglied(wahlperiode, fraktion, stadtratsarbeit, idTeilErg, vname, nname, telefonnr, email, straße, hausnummer, gebDate, ort);
+*/
+                
+                Ratsmitglied rm = (Ratsmitglied) new SQLiteDAOFactory().createRatsmitgliedDAO().read(gestelltvon);
+                ret.setGestelltvon(rm);
+                
 
+                //Anlagen Handling
+                String selectAnlagenSQL = "SELECT * FROM anlage where antragID=?";
+                ArrayList<Anlage> anlagen= new ArrayList();
+                preparedStatement = conn.prepareStatement(selectAnlagenSQL);
+                preparedStatement.setInt(1, ret.getAntragsnummer());
+
+                // execute insert SQL stetement
+                rs = preparedStatement.executeQuery();
+                while (rs.next()) {
+                    int anlagenID = rs.getInt("id");
+                    String anlagenName = rs.getString("name");
+                    String anlagenPfad = rs.getString("lokalerPfad");
+                    int antragID = rs.getInt("antragID");
+
+                    Anlage anlage = new Anlage(anlagenID, anlagenName, anlagenPfad,antragID);
+                    anlagen.add(anlage);
+                    
                 }
-
-                ret.setGestelltvon(teilErg);
-
+                ret.setGestelltvon(ratsmitglied);
+                ret.setAnlagen(anlagen);
             }
-
             SQLiteConnectionPool.instance().returnConnection((SQLiteConnection) conn);
+            
         } catch (SQLException ex) {
             Logger.getLogger(SQLiteAntragDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -172,11 +193,11 @@ public class SQLiteAntragDAO extends AbstractAntragDAO {
             while (rs.next()) {
                 antragsId = rs.getInt("id");
                 Date gestelltam = rs.getDate("gestelltam");
-                gestelltvon = rs.getInt("gestelltvon");
+                gestelltvon = rs.getInt("personID");
                 String betreff = rs.getString("betreff");
                 boolean status = rs.getBoolean("status");
                 String typ = rs.getString("typ");
-                String dokumente = rs.getString("dokumente");
+                String dokumente = rs.getString("anlageID");
                 String details = rs.getString("details");
 
                 ret.add(new Antrag(antragsId, gestelltam, null, betreff, status, typ, details));
@@ -203,6 +224,28 @@ public class SQLiteAntragDAO extends AbstractAntragDAO {
                         String stadtratsarbeit = rs.getString("stadtratsarbeit");
                         antrag.setGestelltvon(new Ratsmitglied(wahlperiode, fraktion, stadtratsarbeit, idTeilErg, vname, nname, telefonnr, email, straße, hausnummer, gebDate, ort));
                     }
+                    
+                    //Anlagen Handling
+                    Ratsmitglied rm = (Ratsmitglied) new SQLiteDAOFactory().createRatsmitgliedDAO().read(gestelltvon);
+                    antrag.setGestelltvon(rm);
+                   
+                /* String selectAnlagenSQL = "SELECT * FROM anlage where antragID=?";
+                ArrayList<Anlage> anlagen= new ArrayList();
+                preparedStatement = conn.prepareStatement(selectAnlagenSQL);
+                preparedStatement.setInt(1, antrag.getAntragsnummer());
+
+                // execute insert SQL stetement
+                rs = preparedStatement.executeQuery();
+                while (rs.next()) {
+                    int anlagenID = rs.getInt("id");
+                    String anlagenName = rs.getString("name");
+                    String anlagenPfad = rs.getString("lokalerPfad");
+                    int antragID = rs.getInt("antragID");
+
+                    Anlage anlage = new Anlage(anlagenID, anlagenName, anlagenPfad,antragID);
+                    anlagen.add(anlage);
+                    
+                }*/
                 }
             }
 
