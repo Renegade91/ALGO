@@ -20,5 +20,5 @@ public class SQLiteDAOFactory extends AbstractDAOFactory<AbstractDAO>{
     public SQLiteRatsmitgliedDAO createRatsmitgliedDAO() {
         return new SQLiteRatsmitgliedDAO();
     }
-    
+
 }
