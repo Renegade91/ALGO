@@ -13,7 +13,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.ArrayList;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.sqlite.SQLiteConnection;
@@ -148,31 +149,28 @@ public class SQLiteAntragDAO extends AbstractAntragDAO {
             }
 
             SQLiteConnectionPool.instance().returnConnection((SQLiteConnection) conn);
-            return null;
         } catch (SQLException ex) {
             Logger.getLogger(SQLiteAntragDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return ret;
     }
-    
-    
+
     @Override
-    public List<Antrag> read() {
-            Connection conn = SQLiteConnectionPool.instance().getConnection();
-            List<Antrag> ret = null;
-            Ratsmitglied teilErg = null;
-            String selectAntragSQL = "SELECT * FROM antrag";
-            int antragsId=0;
-            int gestelltvon=0;
+    public ArrayList<Antrag> read() {
+        Connection conn = SQLiteConnectionPool.instance().getConnection();
+        ArrayList<Antrag> ret = new ArrayList();
+        Ratsmitglied teilErg = null;
+        String selectAntragSQL = "SELECT * FROM antrag";
+        int antragsId = 0;
+        int gestelltvon = 0;
         try {
-            
-            PreparedStatement preparedStatement = conn.prepareStatement(selectAntragSQL);         
-  
-            
+
+            PreparedStatement preparedStatement = conn.prepareStatement(selectAntragSQL);
+
             // execute insert SQL stetement
-            ResultSet rs =  preparedStatement.executeQuery();
-            while(rs.next()){
-                antragsId  = rs.getInt("id");
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                antragsId = rs.getInt("id");
                 Date gestelltam = rs.getDate("gestelltam");
                 gestelltvon = rs.getInt("gestelltvon");
                 String betreff = rs.getString("betreff");
@@ -180,36 +178,35 @@ public class SQLiteAntragDAO extends AbstractAntragDAO {
                 String typ = rs.getString("typ");
                 String dokumente = rs.getString("dokumente");
                 String details = rs.getString("details");
-                
+
                 ret.add(new Antrag(antragsId, gestelltam, null, betreff, typ, details));
             }
-            
-            for(Antrag antrag: ret){
-                if(antrag.getGestelltvon()==null){
+
+            for (Antrag antrag : ret) {
+                if (antrag.getGestelltvon() == null) {
                     String selectRatsmitgliedSQL = "SELECT * FROM ratsmitglied where id=?";
                     preparedStatement = conn.prepareStatement(selectRatsmitgliedSQL);
                     preparedStatement.setInt(1, antrag.getAntragsnummer());
                     rs = preparedStatement.executeQuery();
-                    while(rs.next()){
-                       int idTeilErg = rs.getInt("id");
-                       String vname = rs.getString("vorname");
-                       String nname = rs.getString("nachname");
-                       String telefonnr = rs.getString("telefonnr");
-                       String email = rs.getString("email");
-                       String straße = rs.getString("straße");
-                       String hausnummer = rs.getString("hausnummer");
-                       String ort = rs.getString("ort");
-                       Date gebDate = rs.getDate("gebDate");
-                       String wahlperiode = rs.getString("wahlperiode");
-                       String fraktion = rs.getString("fraktion");
-                       String stadtratsarbeit = rs.getString("stadtratsarbeit");
-                       antrag.setGestelltvon(new Ratsmitglied(wahlperiode, fraktion, stadtratsarbeit, idTeilErg, vname, nname, telefonnr, email, straße, hausnummer, gebDate, ort));
+                    while (rs.next()) {
+                        int idTeilErg = rs.getInt("id");
+                        String vname = rs.getString("vorname");
+                        String nname = rs.getString("nachname");
+                        String telefonnr = rs.getString("telefonnr");
+                        String email = rs.getString("email");
+                        String straße = rs.getString("straße");
+                        String hausnummer = rs.getString("hausnummer");
+                        String ort = rs.getString("ort");
+                        Date gebDate = rs.getDate("gebDate");
+                        String wahlperiode = rs.getString("wahlperiode");
+                        String fraktion = rs.getString("fraktion");
+                        String stadtratsarbeit = rs.getString("stadtratsarbeit");
+                        antrag.setGestelltvon(new Ratsmitglied(wahlperiode, fraktion, stadtratsarbeit, idTeilErg, vname, nname, telefonnr, email, straße, hausnummer, gebDate, ort));
                     }
                 }
             }
-                         
+
             SQLiteConnectionPool.instance().returnConnection((SQLiteConnection) conn);
-            return null;
         } catch (SQLException ex) {
             Logger.getLogger(SQLiteAntragDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

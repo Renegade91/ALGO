@@ -5,7 +5,7 @@
  */
 package Verwaltung.persistenz;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,7 +17,7 @@ public interface AbstractDAO<T> {
 
     public abstract T read(int id);
 
-    public abstract List<T> read();
+    public abstract ArrayList<T> read();
 
     public abstract boolean update(T element);
 

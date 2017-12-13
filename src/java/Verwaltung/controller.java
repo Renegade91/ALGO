@@ -6,8 +6,8 @@
 package Verwaltung;
         
 import Verwaltung.model.*;
-import Verwaltung.persistenz.AbstractDAOFactory;
-import Verwaltung.persistenz.SQLiteDAOFactory;
+import Verwaltung.persistenz.*;
+
 import java.util.ArrayList;
 import java.sql.Date;
 
@@ -54,7 +54,6 @@ public class controller {
         Ratsmitglied rm = getRatsmitglied(id);
         
         Antrag antrag = (Antrag) factory.createAntragDAO().read(id);
-
         
         /*Antrag data = new Antrag(
                 1, 
@@ -69,15 +68,7 @@ public class controller {
     }
     
     public ArrayList<Antrag> getAntragAlle() {
-        // hier muss der dao call hin
-
-        Antrag single = getAntrag(1);
-        
-        ArrayList<Antrag> data = new ArrayList<>();
-        
-        data.add(single);
-        data.add(single);
-        data.add(single);
+        ArrayList<Antrag> data = factory.createAntragDAO().read();
         
         return data;
     }
