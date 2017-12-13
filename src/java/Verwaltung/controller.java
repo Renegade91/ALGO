@@ -15,7 +15,7 @@ import java.sql.Date;
  *
  * @author 89388
  */
-public class controller {
+public class controller {factory
     
     private static final controller instance = new controller();
     private AbstractDAOFactory factory;
