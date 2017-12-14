@@ -42,12 +42,12 @@ public class listAntrage extends HttpServlet {
 
             // gen Header
             out.println(
-                    "<tr>\n"
-                    + "<th>Betreff</th>\n"
-                    + "<th>Gestellt am</th>\n"
-                    + "<th>Gestellt von</th>\n"
-                    + "<th>Status</th>\n"
-                    + "<th>Details</th>\n"
+                    "<tr>"
+                    + "<th>Thema</th>"
+                    + "<th>Gestellt am</th>"
+                    + "<th>Gestellt von</th>"
+                    + "<th>Status</th>"
+                    + "<th>Details</th>"
                     + "</tr>"
             );
 

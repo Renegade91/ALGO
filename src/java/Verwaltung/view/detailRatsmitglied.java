@@ -42,6 +42,14 @@ public class detailRatsmitglied extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
             Ratsmitglied rm = controller.instance().getRatsmitglied(id);
 
+            out.println("<tr><td>Vorname:</td><td>" + rm.getVname() + "</td></tr>");
+            out.println("<tr><td>Nachname:</td><td>" + rm.getNname() + "</td></tr>");
+            out.println("<tr><td>Geburtstag:</td><td>" + rm.getGeburtstag()+ "</td></tr>");
+            
+            out.println("<tr><td>Ort:</td><td>" + rm.getBezirk()+ "</td></tr>");
+            out.println("<tr><td>Telefon:</td><td>" + rm.getTelefon() + "</td></tr>");
+            out.println("<tr><td>Addresse:</td><td>" + rm.getAdresse() + " " + rm.getHausnr() + "</td></tr>");
+            
             out.println("<tr><td>Wahlperiode:</td><td>" + rm.getWahlperiode() + "</td></tr>");
             out.println("<tr><td>Fraktion:</td><td>" + rm.getFraktion() + "</td></tr>");
             out.println("<tr><td>Stadtratsarbeit:</td><td>" + rm.getStadtratsarbeit() + "</td></tr>");

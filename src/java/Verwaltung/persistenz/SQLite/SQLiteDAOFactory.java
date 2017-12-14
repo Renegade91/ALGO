@@ -3,7 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Verwaltung.persistenz;
+package Verwaltung.persistenz.SQLite;
+
+import Verwaltung.persistenz.AbstractDAO;
+import Verwaltung.persistenz.AbstractDAOFactory;
 
 /**
  *

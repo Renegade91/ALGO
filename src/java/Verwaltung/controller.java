@@ -5,6 +5,7 @@
  */
 package Verwaltung;
 
+import Verwaltung.persistenz.SQLite.SQLiteDAOFactory;
 import Verwaltung.model.*;
 import Verwaltung.persistenz.*;
 import java.util.ArrayList;

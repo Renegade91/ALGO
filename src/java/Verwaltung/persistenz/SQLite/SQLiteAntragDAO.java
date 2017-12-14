@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Verwaltung.persistenz;
+package Verwaltung.persistenz.SQLite;
 
 import Verwaltung.model.Anlage;
 import Verwaltung.model.Antrag;
 import Verwaltung.model.Ratsmitglied;
+import Verwaltung.persistenz.AbstractAntragDAO;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -24,9 +25,6 @@ import org.sqlite.SQLiteConnection;
  * @author 89473
  */
 public class SQLiteAntragDAO extends AbstractAntragDAO {
-
-    public SQLiteAntragDAO() {
-    }
 
     @Override
     public boolean create(Antrag element) {
@@ -104,17 +102,7 @@ public class SQLiteAntragDAO extends AbstractAntragDAO {
             // execute insert SQL stetement
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                int antragsId = rs.getInt("id");
-                Date gestelltam = rs.getDate("gestelltam");
-                int gestelltvon = rs.getInt("personID");
-                String betreff = rs.getString("betreff");
-                boolean status = rs.getBoolean("status");
-                String typ = rs.getString("typ");
-                String details = rs.getString("details");
-
-                Ratsmitglied rm = (Ratsmitglied) new SQLiteDAOFactory().createRatsmitgliedDAO().read(gestelltvon);
-
-                ret = new Antrag(antragsId, gestelltam, rm, betreff, status, typ, details);
+                ret = DBtoClass(rs);
             }
         } catch (SQLException ex) {
             Logger.getLogger(SQLiteAntragDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -136,39 +124,7 @@ public class SQLiteAntragDAO extends AbstractAntragDAO {
             // execute insert SQL stetement
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                int antragsId = rs.getInt("id");
-                Date gestelltam = rs.getDate("gestelltam");
-                int gestelltvon = rs.getInt("personID");
-                String betreff = rs.getString("betreff");
-                boolean status = rs.getBoolean("status");
-                String typ = rs.getString("typ");
-                String details = rs.getString("details");
-
-                //Ratsmitglied Handling
-                Ratsmitglied rm = (Ratsmitglied) new SQLiteDAOFactory().createRatsmitgliedDAO().read(gestelltvon);
-
-                //Anlagen Handling
-                //TODO:
-                //ArrayList<Anlage> anlagen = (Anlage) new SQLiteDAOFactory().createAnlageDAO().read(antragsId);
-                //antrag.setAnlagen(anlagen);
-                /* String selectAnlagenSQL = "SELECT * FROM anlage where antragID=?";
-                ArrayList<Anlage> anlagen= new ArrayList();
-                preparedStatement = conn.prepareStatement(selectAnlagenSQL);
-                preparedStatement.setInt(1, antrag.getanlageID());
-
-                // execute insert SQL stetement
-                rs = preparedStatement.executeQuery();
-                while (rs.next()) {
-                    int anlagenID = rs.getInt("id");
-                    String anlagenName = rs.getString("name");
-                    String anlagenPfad = rs.getString("lokalerPfad");
-                    int antragID = rs.getInt("antragID");
-
-                    Anlage anlage = new Anlage(anlagenID, anlagenName, anlagenPfad,antragID);
-                    anlagen.add(anlage);
-                    
-                }*/
-                ret.add(new Antrag(antragsId, gestelltam, rm, betreff, status, typ, details));
+                ret.add(DBtoClass(rs));
             }
         } catch (SQLException ex) {
             Logger.getLogger(SQLiteAntragDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -178,20 +134,50 @@ public class SQLiteAntragDAO extends AbstractAntragDAO {
         return ret;
     }
 
+    private Antrag DBtoClass(ResultSet rs) throws SQLException {
+        int antragsId = rs.getInt("id");
+        Date gestelltam = rs.getDate("gestelltam");
+        int gestelltvon = rs.getInt("personID");
+        String betreff = rs.getString("betreff");
+        boolean status = rs.getBoolean("status");
+        String typ = rs.getString("typ");
+        String details = rs.getString("details");
+
+        Ratsmitglied rm = (Ratsmitglied) new SQLiteDAOFactory().createRatsmitgliedDAO().read(gestelltvon);
+
+        return new Antrag(antragsId, gestelltam, rm, betreff, status, typ, details);
+
+        //Anlagen Handling
+        //TODO:
+        //ArrayList<Anlage> anlagen = (Anlage) new SQLiteDAOFactory().createAnlageDAO().read(antragsId);
+        //antrag.setAnlagen(anlagen);
+        /* String selectAnlagenSQL = "SELECT * FROM anlage where antragID=?";
+        ArrayList<Anlage> anlagen= new ArrayList();
+        preparedStatement = conn.prepareStatement(selectAnlagenSQL);
+        preparedStatement.setInt(1, antrag.getanlageID());
+
+        // execute insert SQL stetement
+        rs = preparedStatement.executeQuery();
+        while (rs.next()) {
+            int anlagenID = rs.getInt("id");
+            String anlagenName = rs.getString("name");
+            String anlagenPfad = rs.getString("lokalerPfad");
+            int antragID = rs.getInt("antragID");
+
+            Anlage anlage = new Anlage(anlagenID, anlagenName, anlagenPfad,antragID);
+            anlagen.add(anlage);
+        }*/
+    }
+
     @Override
     public boolean update(Antrag element) {
-        Connection conn = SQLiteConnectionPool.instance().getConnection();
-
-        SQLiteConnectionPool.instance().returnConnection((SQLiteConnection) conn);
+        // Not yet implemented
         return false;
-
     }
 
     @Override
     public boolean delete(int id) {
-        Connection conn = SQLiteConnectionPool.instance().getConnection();
-
-        SQLiteConnectionPool.instance().returnConnection((SQLiteConnection) conn);
+        // Not yet implemented
         return false;
     }
 

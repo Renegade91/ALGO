@@ -53,8 +53,7 @@ public class detailAntrag extends HttpServlet {
             );
 
             out.println("<tr><td>Status:</td><td>" + a.getStatus() + "</td><td></td></tr>");
-            out.println("<tr><td>Dokumente:</td><td>" + a.getDetails() + "</td><td></td></tr>");
-
+            out.println("<tr><td>Details:</td><td>" + a.getDetails() + "</td><td></td></tr>");
         }
     }
 
