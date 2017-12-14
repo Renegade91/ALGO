@@ -20,7 +20,7 @@ public class Antrag {
     String betreff;
     boolean status;
     String typ;
-    ArrayList<Anlage> anlagen;
+    String anlagen;
     String details;
 
     public Antrag(int antragsnummer, Date gestelltam, Ratsmitglied ratsmitglied, String betreff, boolean status,String typ, String details) {
@@ -30,7 +30,7 @@ public class Antrag {
         this.betreff = betreff;
         this.status = status;
         this.typ = typ;
-        this.anlagen = new ArrayList<>();
+        this.anlagen = "None";
         this.details = details;
     }
 
@@ -94,11 +94,11 @@ public class Antrag {
         this.typ = typ;
     }
 
-    public ArrayList<Anlage> getAnlagen() {
+    public String getAnlagen() {
         return anlagen;
     }
 
-    public void setAnlagen(ArrayList<Anlage> anlagen) {
+    public void setAnlagen(String anlagen) {
         this.anlagen = anlagen;
     }
 
