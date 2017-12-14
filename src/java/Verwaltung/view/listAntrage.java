@@ -43,6 +43,7 @@ public class listAntrage extends HttpServlet {
             // gen Header
             out.println(
                     "<tr>"
+                    + "<th>Typ</th>"
                     + "<th>Thema</th>"
                     + "<th>Gestellt am</th>"
                     + "<th>Gestellt von</th>"
@@ -56,7 +57,8 @@ public class listAntrage extends HttpServlet {
             for (Antrag a : Antrage) {
 
                 out.println("<tr>");
-
+                
+                out.println("<td>" + a.getTyp()+ "</td>");
                 out.println("<td>" + a.getBetreff() + "</td>");
                 out.println("<td>" + a.getGestelltam() + "</td>");
                 out.println("<td>" + a.getName() + "</td>");

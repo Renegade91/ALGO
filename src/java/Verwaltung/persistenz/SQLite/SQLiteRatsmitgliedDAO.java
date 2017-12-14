@@ -25,34 +25,8 @@ public class SQLiteRatsmitgliedDAO extends AbstractRatsmitgliedDAO {
 
     @Override
     public boolean create(Ratsmitglied element) {
-        int retAnlage = 0;
-        try {
-            Connection conn = SQLiteConnectionPool.instance().getConnection();
-
-            String insertRatsmitgliedSQL = "INSERT INTO ratsmitglied(vorname,nachname,telefonnr,email,straße,hausnummer,ort,gebDate,wahlperiode,fraktion,stadtratsarbeit) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
-
-            PreparedStatement preparedStatement = conn.prepareStatement(insertRatsmitgliedSQL);
-
-            preparedStatement.setString(1, element.getVname());
-            preparedStatement.setString(2, element.getNname());
-            preparedStatement.setString(3, element.getTelefon());
-            preparedStatement.setString(4, element.getEmail());
-            preparedStatement.setString(5, element.getAdresse());
-            preparedStatement.setString(6, element.getHausnr());
-            preparedStatement.setString(7, element.getBezirk());
-            preparedStatement.setDate(8, element.getGeburtstag());
-            preparedStatement.setString(9, element.getWahlperiode());
-            preparedStatement.setString(10, element.getFraktion());
-            preparedStatement.setString(11, element.getStadtratsarbeit());
-
-            // execute insert SQL stetement
-            retAnlage = preparedStatement.executeUpdate();
-
-            SQLiteConnectionPool.instance().returnConnection((SQLiteConnection) conn);
-        } catch (SQLException ex) {
-            Logger.getLogger(SQLiteRatsmitgliedDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return retAnlage == 1;
+        // Not yet implemented
+        return false;
     }
 
     @Override
@@ -83,17 +57,17 @@ public class SQLiteRatsmitgliedDAO extends AbstractRatsmitgliedDAO {
     }
 
     private Ratsmitglied DBtoClass(ResultSet rs) throws SQLException {
-        int idTeilErg = rs.getInt("id");
-        String vname = rs.getString("vorname");
-        String nname = rs.getString("nachname");
-        String telefonnr = rs.getString("telefonnr");
-        String email = rs.getString("email");
-        String straße = rs.getString("straße");
-        String hausnummer = rs.getString("hausnummer");
-        String ort = rs.getString("ort");
-        Date gebDate = rs.getDate("gebDate");
-        String wahlperiode = rs.getString("wahlperiode");
-        String fraktion = rs.getString("fraktion");
+        int idTeilErg          = rs.getInt("id");
+        String vname           = rs.getString("vorname");
+        String nname           = rs.getString("nachname");
+        String telefonnr       = rs.getString("telefonnr");
+        String email           = rs.getString("email");
+        String straße          = rs.getString("straße");
+        String hausnummer      = rs.getString("hausnummer");
+        String ort             = rs.getString("ort");
+        Date gebDate           = rs.getDate("gebDate");
+        String wahlperiode     = rs.getString("wahlperiode");
+        String fraktion        = rs.getString("fraktion");
         String stadtratsarbeit = rs.getString("stadtratsarbeit");
 
         return new Ratsmitglied(wahlperiode, fraktion, stadtratsarbeit, idTeilErg, vname, nname, telefonnr, email, straße, hausnummer, gebDate, ort);

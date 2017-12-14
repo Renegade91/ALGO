@@ -11,20 +11,29 @@ import Verwaltung.persistenz.*;
 import java.util.ArrayList;
 
 /**
- * 
+ *
  * @author 89388
  */
 public class controller {
 
-    private static final controller instance = new controller();
+    private static final controller instance = new controller("SQLite3");
     private final AbstractDAOFactory factory;
-
-    private controller() {
-        factory = new SQLiteDAOFactory();
-    }
 
     public static controller instance() {
         return instance;
+    }
+
+    private controller(String DBtype) {
+        switch (DBtype) {
+            case "SQLite3":
+                factory = new SQLiteDAOFactory();
+                break;
+            case "Oracle":
+                //factory = new OracleDAOFactory();
+                throw new RuntimeException("Oracle DB is not supported !!!");
+            default:
+                throw new IllegalArgumentException(DBtype + " is an unkown database type.");
+        }
     }
 
     public Ratsmitglied getRatsmitglied(int id) {

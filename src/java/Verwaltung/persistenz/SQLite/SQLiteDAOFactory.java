@@ -12,7 +12,7 @@ import Verwaltung.persistenz.AbstractDAOFactory;
  *
  * @author 89473
  */
-public class SQLiteDAOFactory extends AbstractDAOFactory<AbstractDAO>{
+public class SQLiteDAOFactory extends AbstractDAOFactory<AbstractDAO> {
 
     @Override
     public SQLiteAntragDAO createAntragDAO() {
@@ -23,12 +23,4 @@ public class SQLiteDAOFactory extends AbstractDAOFactory<AbstractDAO>{
     public SQLiteRatsmitgliedDAO createRatsmitgliedDAO() {
         return new SQLiteRatsmitgliedDAO();
     }
-
-    @Override
-    public AbstractDAO createAnlageDAO() {
-        return new SQLiteAnlageDAO();
-    }
-    
-    
-    
 }
